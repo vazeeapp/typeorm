@@ -217,7 +217,7 @@ export class DbQueryResultCache implements QueryResultCache {
      */
     async remove(identifiers: string[], queryRunner?: QueryRunner): Promise<void> {
         await Promise.all(identifiers.map(identifier => {
-            const qb = this.getQueryRunner(queryRunner).manager.createQueryBuilder();
+            const qb = this.connection.createQueryBuilder();
             return qb.delete()
                 .from(this.queryResultCacheTable)
                 .where(`${qb.escape("identifier")} = :identifier`, {identifier})
